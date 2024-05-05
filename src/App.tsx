@@ -2,11 +2,7 @@ import { useState } from 'react'
 import './App.css'
 
 function App() {
-  return (
-    <>
-      <button>asd</button>
-    </>
-  )
+  return <div></div>
 }
 
 export default App
