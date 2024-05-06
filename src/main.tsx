@@ -1,9 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-import { MainPage } from './pages/MainPage.tsx'
 import './index.css'
+import { MainPage } from './pages/MainPage.tsx'
 import { NotFoundPage } from './pages/NotFoundPage'
+import { PokemonPage } from './pages/PokemonPage'
 
 const router = createBrowserRouter([
   {
@@ -11,10 +12,17 @@ const router = createBrowserRouter([
     element: <MainPage />,
     errorElement: <NotFoundPage />,
   },
-  // {
-  //   path: '/pokemon/:pokemonName',
-  //   element: <MainPage />,
-  // },
+  {
+    path: '/pokemon',
+    element: <PokemonPage />,
+    errorElement: <NotFoundPage />,
+    children: [
+      {
+        path: '/pokemon/:pokemonName',
+        element: <MainPage />,
+      },
+    ],
+  },
 ])
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
