@@ -3,14 +3,14 @@ import { Pokemon } from '../../types/Pokemon'
 
 interface PokemonsState {
   pending: boolean
-  error: null | string
+  error: string | undefined
   success: boolean
   pokemons: { [name: string]: Pokemon }
 }
 
 const initialState: PokemonsState = {
   pending: false,
-  error: null,
+  error: undefined,
   success: false,
   pokemons: {},
 }
@@ -20,7 +20,7 @@ const pokemonsSlice = createSlice({
   initialState,
   reducers: {
     clearError: (state) => {
-      state.error = null
+      state.error = undefined
     },
   },
   extraReducers: (builder) => {
