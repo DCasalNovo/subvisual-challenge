@@ -1,5 +1,16 @@
-import { useState } from 'react'
+import { useSelector } from 'react-redux'
+import { RootState } from '../redux/store'
+import { FindPokeForm } from '../components/FindPokeForm'
 
 export const MainPage = () => {
-  return <div className="w-full h-full">titit</div>
+  const pokemons = useSelector(
+    (state: RootState) => state.pokemonsReducer.pokemons,
+  )
+
+  return (
+    <>
+      <FindPokeForm></FindPokeForm>
+      {pokemons && <div>{JSON.stringify(Object.keys(pokemons))}</div>}
+    </>
+  )
 }
