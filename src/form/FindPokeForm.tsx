@@ -2,9 +2,10 @@ import { FormEvent, useEffect, useState } from 'react'
 import { fetchPokemon, clearError } from '../redux/pokemons/pokemonsSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from '../redux/store'
-import { Spinner } from './Spinner'
+import { Spinner } from '../components/Spinner'
 import { SearchPokemon } from '../utils/SearchPokemon'
-import { FloatingInput } from './FloatingInput'
+import { FloatingInput } from '../components/FloatingInput'
+import { updateNames } from '../redux/findPokemon/findPokemonSlice'
 
 export const FindPokeForm = () => {
   const pending = useSelector(
@@ -14,23 +15,25 @@ export const FindPokeForm = () => {
   const pokemons = useSelector(
     (state: RootState) => state.pokemonsReducer.pokemons,
   )
+  const names = useSelector(
+    (state: RootState) => state.findPokemonReducer.names,
+  )
   const dispatch = useDispatch<AppDispatch>()
 
   const [pokemonName, setPokemonName] = useState('')
-  const [searchPokemon, setSearchPokemon] = useState<string[]>([])
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
-    if (searchPokemon.length === 1) {
-      setPokemonName(searchPokemon[0])
-      if (!pokemons.hasOwnProperty(searchPokemon[0])) {
-        dispatch(fetchPokemon(searchPokemon[0]))
+    if (names.length === 1) {
+      setPokemonName(names[0][0])
+      if (!pokemons.hasOwnProperty(names[0][0])) {
+        dispatch(fetchPokemon(names[0][0]))
       }
     }
   }
 
   useEffect(() => {
-    setSearchPokemon(SearchPokemon(pokemonName))
+    dispatch(updateNames(SearchPokemon(pokemonName)))
   }, [pokemonName])
 
   return (
@@ -58,10 +61,12 @@ export const FindPokeForm = () => {
           {!pending ? 'Search' : <Spinner />}
         </button>
       </form>
-      {searchPokemon.length > 0 && (
+      {names.length > 0 && (
         <div className="flex flex-col gap-2">
-          {searchPokemon.map((pokemon) => (
-            <p key={pokemon}>{pokemon}</p>
+          {names.map(([pokemon, number]) => (
+            <p key={number}>
+              {pokemon} {number}
+            </p>
           ))}
         </div>
       )}

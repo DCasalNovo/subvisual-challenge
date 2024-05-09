@@ -1,5 +1,5 @@
 export const SearchPokemon = (findString: string) => {
-  let list: { [key: string]: string[] } = {
+  let list: { [key: string]: [string, number][] } = {
     prefix: [],
     other: [],
   }
@@ -7,9 +7,9 @@ export const SearchPokemon = (findString: string) => {
   for (const name in pokemonNames) {
     if (name.includes(findString)) {
       if (name.startsWith(findString) && list.prefix.length < 16) {
-        list.prefix.push(name)
+        list.prefix.push([name, pokemonNames[name]])
       } else if (list.prefix.length < 16 && list.other.length < 16) {
-        list.other.push(name)
+        list.other.push([name, pokemonNames[name]])
       }
       if (list.prefix.length === 16) break
     }
@@ -18,7 +18,7 @@ export const SearchPokemon = (findString: string) => {
   return [...list.prefix, ...list.other.slice(0, 16 - list.prefix.length)]
 }
 
-const pokemonNames = {
+const pokemonNames: { [key: string]: number } = {
   bulbasaur: 1,
   ivysaur: 2,
   venusaur: 3,

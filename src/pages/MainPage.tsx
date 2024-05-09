@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux'
 import { RootState } from '../redux/store'
-import { FindPokeForm } from '../components/FindPokeForm'
+import { FindPokeForm } from '../form/FindPokeForm'
 
 export const MainPage = () => {
   const pokemons = useSelector(
