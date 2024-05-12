@@ -6,7 +6,7 @@ interface PokemonsState {
   error: boolean
   success: boolean
   message: string | undefined
-  pokemons: { [name: string]: Pokemon }
+  pokemonsList: { [name: string]: Pokemon }
 }
 
 const initialState: PokemonsState = {
@@ -14,7 +14,7 @@ const initialState: PokemonsState = {
   error: false,
   success: false,
   message: undefined,
-  pokemons: {},
+  pokemonsList: {},
 }
 
 const pokemonsSlice = createSlice({
@@ -23,6 +23,12 @@ const pokemonsSlice = createSlice({
   reducers: {
     clearError: (state) => {
       state.error = false
+    },
+    clearState: (state) => {
+      state.pending = false
+      state.error = false
+      state.success = false
+      state.message = undefined
     },
   },
   extraReducers: (builder) => {
@@ -39,7 +45,7 @@ const pokemonsSlice = createSlice({
           state.pending = false
           state.success = true
           state.message = action.payload.name
-          state.pokemons[action.payload.name] = action.payload
+          state.pokemonsList[action.payload.name] = action.payload
           console.log('fetchPokemon.fulfilled: ' + action.payload.name)
         },
       )
@@ -65,6 +71,6 @@ export const fetchPokemon = createAsyncThunk(
     return data
   },
 )
-export const { clearError } = pokemonsSlice.actions
+export const { clearError, clearState } = pokemonsSlice.actions
 
 export default pokemonsSlice.reducer

@@ -1,5 +1,5 @@
 import { capitalizeNames } from '../utils/utils'
-import { Spinner } from './Spinner'
+import { Spinner } from './interactiveComponents/Spinner'
 
 interface PokemonCardProps {
   pending: boolean

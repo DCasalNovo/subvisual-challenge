@@ -2,20 +2,20 @@ import { FormEvent, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from '../redux/store'
 import { SearchPokemon } from '../utils/SearchPokemon'
-import { FloatingInput } from '../components/FloatingInput'
+import { FloatingInput } from '../components/interactiveComponents/FloatingInput'
 import { updateNames } from '../redux/findPokemon/findPokemonSlice'
 
 export const FindPokeForm = () => {
-  const names = useSelector(
-    (state: RootState) => state.findPokemonReducer.names,
+  const namesList = useSelector(
+    (state: RootState) => state.findPokemonReducer.namesList,
   )
   const dispatch = useDispatch<AppDispatch>()
   const [pokemonName, setPokemonName] = useState('')
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
-    if (names.length === 1) {
-      setPokemonName(names[0][0])
+    if (namesList.length === 1) {
+      setPokemonName(namesList[0][0])
     }
   }
 

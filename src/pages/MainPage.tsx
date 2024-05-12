@@ -2,14 +2,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from '../redux/store'
 import { FindPokeForm } from '../form/FindPokeForm'
 import { PokemonCard } from '../components/PokemonCard'
-import { fetchPokemon } from '../redux/pokemons/pokemonsSlice'
+import { clearState, fetchPokemon } from '../redux/pokemons/pokemonsSlice'
 import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
 
 export const MainPage = () => {
   const navigate = useNavigate()
-  const pokemons = useSelector(
-    (state: RootState) => state.pokemonsReducer.pokemons,
+  const pokemonsList = useSelector(
+    (state: RootState) => state.pokemonsReducer.pokemonsList,
   )
   const pending = useSelector(
     (state: RootState) => state.pokemonsReducer.pending,
@@ -21,13 +21,13 @@ export const MainPage = () => {
     (state: RootState) => state.pokemonsReducer.message,
   )
 
-  const names = useSelector(
-    (state: RootState) => state.findPokemonReducer.names,
+  const namesList = useSelector(
+    (state: RootState) => state.findPokemonReducer.namesList,
   )
   const dispatch = useDispatch<AppDispatch>()
 
   const handleClick = (pokemon: string) => {
-    if (!pokemons.hasOwnProperty(pokemon)) {
+    if (!pokemonsList.hasOwnProperty(pokemon)) {
       dispatch(fetchPokemon(pokemon))
     } else {
       navigate(`/pokemon/${pokemon}`)
@@ -35,17 +35,23 @@ export const MainPage = () => {
   }
 
   useEffect(() => {
-    if (success && message) navigate(`/pokemon/${message}`)
+    if (success && message) {
+      dispatch(clearState())
+      navigate(`/pokemon/${message}`)
+    }
   }, [success])
 
   return (
-    <div className="w-screen h-screen p-8 flex justify-center overflow-auto bg-slate-600">
-      <div className="flex flex-col items-center h-max w-full p-6 max-w-6xl rounded-3xl bg-white">
+    <div className="w-screen h-screen p-8 flex flex-col items-center overflow-auto">
+      <div className="fixed top-0 left-0 w-screen h-screen -z-50">
+        <img src="/bg.png" className="w-full h-full" />
+      </div>
+      <div className="flex flex-col items-center gap-6 h-max w-full p-6 max-w-6xl rounded-3xl bg-white">
+        <img src="/pokemon.svg" className="w-60" />
         <FindPokeForm></FindPokeForm>
-        <div className="w-full h-[2px] bg-gray-200 m-4"></div>
         <div className="grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 items-center gap-4">
-          {names.length > 0 &&
-            names.map(([pokemon, number]) => (
+          {namesList.length > 0 &&
+            namesList.map(([pokemon, number]) => (
               <PokemonCard
                 pending={pending && pokemon === message}
                 key={number}
@@ -59,5 +65,3 @@ export const MainPage = () => {
     </div>
   )
 }
-
-// {pokemons && <div>{JSON.stringify(Object.keys(pokemons))}</div>}

@@ -1,11 +1,11 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
 interface findPokemonState {
-  names: [string, number][]
+  namesList: [string, number][]
 }
 
 const initialState: findPokemonState = {
-  names: [],
+  namesList: [],
 }
 
 const findPokemonSlice = createSlice({
@@ -13,10 +13,10 @@ const findPokemonSlice = createSlice({
   initialState,
   reducers: {
     clearSearch: (state) => {
-      state.names = []
+      state.namesList = []
     },
     updateNames: (state, action: PayloadAction<[string, number][]>) => {
-      state.names = action.payload
+      state.namesList = action.payload
     },
   },
 })
