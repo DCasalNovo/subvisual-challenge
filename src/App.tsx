@@ -2,7 +2,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { MainPage } from './pages/MainPage.tsx'
 import { NotFoundPage } from './pages/NotFoundPage.tsx'
 import { PokemonPage } from './pages/PokemonPage.tsx'
-import { MoreInfo } from './components/MoreInfo'
+import { PokemonInfo } from './components/PokemonInfo.tsx'
 
 const router = createBrowserRouter([
   {
@@ -17,7 +17,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/pokemon/:pokemonName',
-        element: <MoreInfo />,
+        element: <PokemonInfo />,
       },
     ],
   },

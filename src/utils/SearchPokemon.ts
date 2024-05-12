@@ -18,6 +18,12 @@ export const SearchPokemon = (findString: string) => {
   return [...list.prefix, ...list.other.slice(0, 24 - list.prefix.length)]
 }
 
+export const SearchPokemonById = (pokemonId: number) => {
+  return Object.keys(pokemonNames).find(
+    (name) => pokemonNames[name] === pokemonId,
+  )
+}
+
 const pokemonNames: { [key: string]: number } = {
   bulbasaur: 1,
   ivysaur: 2,
