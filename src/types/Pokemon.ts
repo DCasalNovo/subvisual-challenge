@@ -58,7 +58,7 @@ export interface Pokemon {
   is_default: true
   location_area_encounters: Url
   moves: Moves[]
-  name: 'charmander'
+  name: string
   order: number
   past_types: []
   species: Link
