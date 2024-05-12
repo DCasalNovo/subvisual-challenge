@@ -6,16 +6,16 @@ export const SearchPokemon = (findString: string) => {
 
   for (const name in pokemonNames) {
     if (name.includes(findString)) {
-      if (name.startsWith(findString) && list.prefix.length < 16) {
+      if (name.startsWith(findString) && list.prefix.length < 24) {
         list.prefix.push([name, pokemonNames[name]])
-      } else if (list.prefix.length < 16 && list.other.length < 16) {
+      } else if (list.prefix.length < 24 && list.other.length < 24) {
         list.other.push([name, pokemonNames[name]])
       }
-      if (list.prefix.length === 16) break
+      if (list.prefix.length === 24) break
     }
   }
 
-  return [...list.prefix, ...list.other.slice(0, 16 - list.prefix.length)]
+  return [...list.prefix, ...list.other.slice(0, 24 - list.prefix.length)]
 }
 
 const pokemonNames: { [key: string]: number } = {

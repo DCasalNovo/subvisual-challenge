@@ -1,5 +1,5 @@
 interface FloatingInput {
-  error: string | undefined
+  error?: string
   label: string
   value: string
   onValueChange: (value: string) => void
