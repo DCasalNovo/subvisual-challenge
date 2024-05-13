@@ -32,7 +32,6 @@ export const PokemonInfo = () => {
     ) {
       dispatch(fetchPokemon(pokemonName))
     }
-    console.log(Object.keys(pokemonsList))
   }, [pokemonName, pokemonsList])
 
   const handleClick = (pokemon: string) => {
@@ -59,9 +58,6 @@ export const PokemonInfo = () => {
 
   return (
     <div className="flex flex-col justify-between w-full h-full">
-      <div className="flex flex-col items-center w-full h-full p-2">
-        <DisplayInfo pokemon={currentPokemon} />
-      </div>
       <div className="flex justify-between w-full p-4 font-semibold text-blue-800">
         <CustomButton
           id={currentPokemon.id - 1}
@@ -77,6 +73,9 @@ export const PokemonInfo = () => {
           message={message}
           onClick={handleClick}
         />
+      </div>
+      <div className="flex flex-col items-center w-full h-full p-2">
+        <DisplayInfo pokemon={currentPokemon} />
       </div>
     </div>
   )
