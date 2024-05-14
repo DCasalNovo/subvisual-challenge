@@ -1,9 +1,10 @@
 import { FormEvent, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from '../redux/store'
-import { SearchPokemon } from '../utils/SearchPokemon'
+import { SearchPokemonByName, SearchPokemonById } from '../utils/SearchPokemon'
 import { FloatingInput } from '../components/interactiveComponents/FloatingInput'
 import { updateNames } from '../redux/find/findSlice'
+import { CustomButton } from '../components/CustomButton'
 
 export const FindPokeForm = () => {
   const namesList = useSelector(
@@ -11,6 +12,7 @@ export const FindPokeForm = () => {
   )
   const dispatch = useDispatch<AppDispatch>()
   const [pokemonName, setPokemonName] = useState('')
+  const [pokemonId, setPokemonId] = useState('')
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
@@ -20,8 +22,14 @@ export const FindPokeForm = () => {
   }
 
   useEffect(() => {
-    dispatch(updateNames(SearchPokemon(pokemonName)))
+    dispatch(updateNames(SearchPokemonByName(pokemonName)))
   }, [pokemonName])
+
+  useEffect(() => {
+    if (parseInt(pokemonId))
+      dispatch(updateNames(SearchPokemonById(parseInt(pokemonId))))
+    else dispatch(updateNames(SearchPokemonByName(pokemonName)))
+  }, [pokemonId])
 
   return (
     <>
@@ -29,15 +37,37 @@ export const FindPokeForm = () => {
         className="flex gap-4 items-start p-4"
         onSubmit={(e: FormEvent) => handleSubmit(e)}
       >
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-row items-center gap-4">
           <FloatingInput
             label="Pokémon name"
-            required
             value={pokemonName}
             onValueChange={(value) => {
               setPokemonName(value)
             }}
           />
+          <FloatingInput
+            label="Pokémon id"
+            value={pokemonId}
+            type="number"
+            onValueChange={(value) => {
+              if (value === '') setPokemonId('')
+              else {
+                value = value.replace(/\D/g, '')
+                const val = parseInt(value)
+                if (val >= 1027 || val === 0) setPokemonId('1025')
+                else if (val < 0 || val === 1026) setPokemonId('1')
+                else setPokemonId(value)
+              }
+            }}
+          />
+          <CustomButton
+            onClick={() => {
+              setPokemonName('')
+              setPokemonId('')
+            }}
+          >
+            Clear
+          </CustomButton>
         </div>
       </form>
     </>

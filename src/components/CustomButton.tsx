@@ -1,9 +1,9 @@
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa6'
-import { SearchPokemonById } from '../utils/SearchPokemon'
+import { SearchId } from '../utils/SearchPokemon'
 import { capitalizeNames } from '../utils/utils'
 import { Spinner } from './interactiveComponents/Spinner'
 
-interface CustomButtonProps {
+interface PokemonButtonProps {
   id: number
   arrow: 'next' | 'prev'
   pending: boolean
@@ -11,14 +11,14 @@ interface CustomButtonProps {
   onClick: (pokemonName: string) => void
 }
 
-export const CustomButton = ({
+export const PokemonButton = ({
   id,
   arrow,
   pending,
   message,
   onClick,
-}: CustomButtonProps) => {
-  const pokemonName = SearchPokemonById(id)
+}: PokemonButtonProps) => {
+  const pokemonName = SearchId(id)
   if (pokemonName) {
     if (pending && pokemonName === message) {
       return (
@@ -28,18 +28,33 @@ export const CustomButton = ({
       )
     }
     return (
-      <button
-        className="inline-flex items-center justify-center p-0.5 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white focus:ring-0 focus:outline-none"
-        onClick={() => onClick(pokemonName)}
-      >
-        <span className="flex gap-3 px-5 py-2 justify-start items-center transition-all ease-in duration-75 bg-white rounded-md group-hover:bg-opacity-0">
+      <CustomButton onClick={() => onClick(pokemonName)}>
+        <>
           {arrow === 'prev' ? <FaChevronLeft /> : null}
           {capitalizeNames(pokemonName)}
           {arrow === 'next' ? <FaChevronRight /> : null}
-        </span>
-      </button>
+        </>
+      </CustomButton>
     )
   } else {
     return <div></div>
   }
+}
+
+interface CustomButtonProps {
+  children: any
+  onClick: () => void
+}
+
+export const CustomButton = ({ onClick, children }: CustomButtonProps) => {
+  return (
+    <button
+      className="h-fit inline-flex items-center justify-center p-0.5 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 font-semibold text-white hover:text-blue-800 focus:ring-0 focus:outline-none"
+      onClick={onClick}
+    >
+      <span className="flex gap-3 px-5 py-2 justify-start items-center transition-all ease-in duration-75 bg-opacity-0 rounded-md group-hover:bg-white ">
+        {children}
+      </span>
+    </button>
+  )
 }

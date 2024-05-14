@@ -1,4 +1,4 @@
-export const SearchPokemon = (findString: string) => {
+export const SearchPokemonByName = (findString: string) => {
   let list: { [key: string]: [string, number][] } = {
     prefix: [],
     other: [],
@@ -6,19 +6,37 @@ export const SearchPokemon = (findString: string) => {
 
   for (const name in pokemonNames) {
     if (name.includes(findString)) {
-      if (name.startsWith(findString) && list.prefix.length < 24) {
+      if (name.startsWith(findString) && list.prefix.length < 60) {
         list.prefix.push([name, pokemonNames[name]])
-      } else if (list.prefix.length < 24 && list.other.length < 24) {
+      } else if (list.prefix.length < 60 && list.other.length < 60) {
         list.other.push([name, pokemonNames[name]])
       }
-      if (list.prefix.length === 24) break
+      if (list.prefix.length === 60) break
     }
   }
 
-  return [...list.prefix, ...list.other.slice(0, 24 - list.prefix.length)]
+  return [...list.prefix, ...list.other.slice(0, 60 - list.prefix.length)]
 }
 
-export const SearchPokemonById = (pokemonId: number) => {
+export const SearchPokemonById = (findId: number) => {
+  const list: { [key: string]: [string, number][] } = {
+    prefix: [],
+    sufix: [],
+  }
+  for (const name in pokemonNames) {
+    if (pokemonNames[name] >= findId && pokemonNames[name] < findId + 60) {
+      list.prefix.push([name, pokemonNames[name]])
+    } else if (
+      pokemonNames[name] >= findId - 1025 &&
+      pokemonNames[name] < findId - 965
+    ) {
+      list.sufix.push([name, pokemonNames[name]])
+    }
+  }
+  return [...list.prefix, ...list.sufix]
+}
+
+export const SearchId = (pokemonId: number) => {
   return Object.keys(pokemonNames).find(
     (name) => pokemonNames[name] === pokemonId,
   )

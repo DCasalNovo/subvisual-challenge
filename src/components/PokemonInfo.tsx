@@ -4,7 +4,7 @@ import { AppDispatch, RootState } from '../redux/store'
 import { useEffect } from 'react'
 import { clearState, fetchPokemon } from '../redux/pokemons/pokemonsSlice'
 import { Pokemon } from '../types/Pokemon'
-import { CustomButton } from './CustomButton'
+import { PokemonButton } from './CustomButton'
 import { DisplayInfo } from './DisplayInfo'
 import { capitalizeNames } from '../utils/utils'
 
@@ -59,15 +59,15 @@ export const PokemonInfo = () => {
 
   const DisplayButtons = () => {
     return (
-      <div className="flex justify-between w-full p-4 font-semibold text-blue-800">
-        <CustomButton
+      <div className="flex justify-between w-full p-4">
+        <PokemonButton
           id={currentPokemon.id - 1}
           arrow="prev"
           pending={pending}
           message={message}
           onClick={handleClick}
         />
-        <CustomButton
+        <PokemonButton
           id={currentPokemon.id + 1}
           arrow="next"
           pending={pending}
