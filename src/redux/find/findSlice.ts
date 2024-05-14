@@ -1,14 +1,14 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
-interface findPokemonState {
+interface findState {
   namesList: [string, number][]
 }
 
-const initialState: findPokemonState = {
+const initialState: findState = {
   namesList: [],
 }
 
-const findPokemonSlice = createSlice({
+const findSlice = createSlice({
   name: 'pokemons',
   initialState,
   reducers: {
@@ -21,6 +21,6 @@ const findPokemonSlice = createSlice({
   },
 })
 
-export const { clearSearch, updateNames } = findPokemonSlice.actions
+export const { clearSearch, updateNames } = findSlice.actions
 
-export default findPokemonSlice.reducer
+export default findSlice.reducer

@@ -31,8 +31,20 @@ interface cries {
   [key: string]: Url
 }
 
+type imageUrl = Url | null
+
+interface other {
+  [key: string]: { [base: string]: imageUrl }
+}
+
+interface versions {
+  [gen: number]: { [key: string]: { [base: string]: imageUrl } }
+}
+
 interface Sprites {
-  [key: string]: Url | null | object
+  [key: string]: imageUrl | other | versions
+  other: other
+  versions: versions
 }
 
 interface Stats {

@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
 import pokemonsReducer from './pokemons/pokemonsSlice'
-import findPokemonReducer from './findPokemon/findPokemonSlice'
+import findReducer from './find/findSlice'
+import displayInfoReducer from './displayInfo/displayInfoSlice'
 
 export const store = configureStore({
   reducer: {
     pokemonsReducer,
-    findPokemonReducer,
+    findReducer,
+    displayInfoReducer,
   },
 })
 

@@ -22,7 +22,7 @@ export const MainPage = () => {
   )
 
   const namesList = useSelector(
-    (state: RootState) => state.findPokemonReducer.namesList,
+    (state: RootState) => state.findReducer.namesList,
   )
   const dispatch = useDispatch<AppDispatch>()
 

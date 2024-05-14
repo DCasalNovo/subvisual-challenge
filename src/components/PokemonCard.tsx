@@ -22,7 +22,7 @@ export const PokemonCard = ({
       {!pending ? (
         <img
           className="rounded-t-lg w-40 h-40"
-          src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${number}.png`}
+          src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${number}.png`}
           alt=""
         />
       ) : (

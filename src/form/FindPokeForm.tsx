@@ -3,11 +3,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from '../redux/store'
 import { SearchPokemon } from '../utils/SearchPokemon'
 import { FloatingInput } from '../components/interactiveComponents/FloatingInput'
-import { updateNames } from '../redux/findPokemon/findPokemonSlice'
+import { updateNames } from '../redux/find/findSlice'
 
 export const FindPokeForm = () => {
   const namesList = useSelector(
-    (state: RootState) => state.findPokemonReducer.namesList,
+    (state: RootState) => state.findReducer.namesList,
   )
   const dispatch = useDispatch<AppDispatch>()
   const [pokemonName, setPokemonName] = useState('')

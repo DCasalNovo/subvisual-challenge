@@ -6,6 +6,7 @@ import { clearState, fetchPokemon } from '../redux/pokemons/pokemonsSlice'
 import { Pokemon } from '../types/Pokemon'
 import { CustomButton } from './CustomButton'
 import { DisplayInfo } from './DisplayInfo'
+import { capitalizeNames } from '../utils/utils'
 
 export const PokemonInfo = () => {
   const navigate = useNavigate()
@@ -56,8 +57,8 @@ export const PokemonInfo = () => {
   }
   const currentPokemon: Pokemon = pokemonsList[pokemonName]
 
-  return (
-    <div className="flex flex-col justify-between w-full h-full">
+  const DisplayButtons = () => {
+    return (
       <div className="flex justify-between w-full p-4 font-semibold text-blue-800">
         <CustomButton
           id={currentPokemon.id - 1}
@@ -74,9 +75,22 @@ export const PokemonInfo = () => {
           onClick={handleClick}
         />
       </div>
-      <div className="flex flex-col items-center w-full h-full p-2">
-        <DisplayInfo pokemon={currentPokemon} />
+    )
+  }
+
+  return (
+    <div className="px-[4vw] lg:px-10 flex flex-col justify-between w-full h-full gap-4">
+      <div className="w-full py-1 mt-4 flex gap-4 items-baseline justify-center border-b-2 border-slate-400">
+        <h1 className="font-bold text-3xl text-slate-600">
+          {capitalizeNames(currentPokemon.name)}
+        </h1>
+        <span className="text-xl text-slate-400">
+          (id: {currentPokemon.id})
+        </span>
       </div>
+      <DisplayButtons />
+      <DisplayInfo pokemon={currentPokemon} />
+      <DisplayButtons />
     </div>
   )
 }
