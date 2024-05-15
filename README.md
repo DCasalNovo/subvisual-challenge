@@ -44,9 +44,9 @@ Pokédex is a React application designed to showcase proficiency within Subvisua
 ### Run Tests
 
 - Run the program locally as the tests utilize `http://localhost:5173`.
-- Run Cypress using `npx cypress run`.
+- While the program is running, run Cypress using `npx cypress run`.
 
 ## Author
 
 Diogo Casal Novo
-DCasalNovo
+([@DCasalNovo](https://github.com/DCasalNovo))
