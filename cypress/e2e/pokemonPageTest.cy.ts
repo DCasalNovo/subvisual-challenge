@@ -76,7 +76,7 @@ describe('Test pokemon page', () => {
         expect($img.attr('src')).to.match(/\/pokemon\/\d+.png/)
       })
       .click()
-      .wait(1000)
+      .wait(4000)
       .should(($img) => {
         expect($img.attr('src')).to.match(/\/pokemon\/back\/\d+.png/)
       })
