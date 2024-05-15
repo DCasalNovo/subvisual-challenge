@@ -52,11 +52,11 @@ export const FindPokeForm = () => {
             onValueChange={(value) => {
               if (value === '') setPokemonId('')
               else {
-                value = value.replace(/\D/g, '')
-                const val = parseInt(value)
+                const clearValue = value.replace(/\D/g, '')
+                const val = parseInt(clearValue)
                 if (val >= 1027 || val === 0) setPokemonId('1025')
                 else if (val < 0 || val === 1026) setPokemonId('1')
-                else setPokemonId(value)
+                else setPokemonId(clearValue)
               }
             }}
           />

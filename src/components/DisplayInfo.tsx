@@ -10,8 +10,6 @@ interface DisplayInfoProps {
 }
 
 export const DisplayInfo = ({ pokemon }: DisplayInfoProps) => {
-  console.log(pokemon)
-
   const sprites = useSelector(
     (state: RootState) => state.displayInfoReducer.sprites,
   )
