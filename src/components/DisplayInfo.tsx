@@ -29,6 +29,8 @@ export const DisplayInfo = ({ pokemon }: DisplayInfoProps) => {
           <div className="py-1.5 w-max flex gap-4">
             {Object.entries(sprites.default).map(([key, images]) => (
               <InfoCard
+                data-testid={`InfoCard-${key}`}
+                key={key}
                 text={key}
                 imagem={
                   images.backSide ? (images.back as string) : images.front

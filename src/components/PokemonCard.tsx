@@ -31,10 +31,16 @@ export const PokemonCard = ({
         </div>
       )}
       <div className="w-full p-5 flex flex-col items-center">
-        <p className="text-2xl font-bold text-gray-900 dark:text-white">
+        <p
+          data-testid={`PokeCard-name-${pokemon}`}
+          className="text-2xl font-bold text-gray-900 dark:text-white"
+        >
           {capitalizeNames(pokemon)}
         </p>
-        <span className="mb-3 text-gray-700 dark:text-gray-400">
+        <span
+          data-testid={`PokeCard-id-${number}`}
+          className="mb-3 text-gray-700 dark:text-gray-400"
+        >
           (id: {number})
         </span>
       </div>

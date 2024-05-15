@@ -1,5 +1,6 @@
 interface FloatingInput {
   error?: string
+  'data-testid'?: string
   label: string
   value: string
   onValueChange: (value: string) => void

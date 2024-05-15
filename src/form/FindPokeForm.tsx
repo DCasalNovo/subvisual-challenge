@@ -1,3 +1,4 @@
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa6'
 import { FormEvent, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from '../redux/store'
@@ -37,37 +38,66 @@ export const FindPokeForm = () => {
         className="flex gap-4 items-start p-4"
         onSubmit={(e: FormEvent) => handleSubmit(e)}
       >
-        <div className="flex flex-row items-center gap-4">
-          <FloatingInput
-            label="Pokémon name"
-            value={pokemonName}
-            onValueChange={(value) => {
-              setPokemonName(value)
-            }}
-          />
-          <FloatingInput
-            label="Pokémon id"
-            value={pokemonId}
-            type="number"
-            onValueChange={(value) => {
-              if (value === '') setPokemonId('')
-              else {
-                const clearValue = value.replace(/\D/g, '')
-                const val = parseInt(clearValue)
-                if (val >= 1027 || val === 0) setPokemonId('1025')
-                else if (val < 0 || val === 1026) setPokemonId('1')
-                else setPokemonId(clearValue)
-              }
-            }}
-          />
-          <CustomButton
-            onClick={() => {
-              setPokemonName('')
-              setPokemonId('')
-            }}
-          >
-            Clear
-          </CustomButton>
+        <div className="flex flex-col sm:flex-row items-center gap-4 md:gap-8">
+          <div className="flex flex-col md:flex-row items-center gap-4">
+            <FloatingInput
+              data-testid="FindPokeForm-name"
+              label="Pokémon name"
+              value={pokemonName}
+              onValueChange={(value) => {
+                setPokemonName(value)
+              }}
+            />
+            <FloatingInput
+              data-testid="FindPokeForm-id"
+              label="Pokémon id"
+              value={pokemonId}
+              onValueChange={(value) => {
+                if (value === '') setPokemonId('')
+                else {
+                  const clearValue = value.replace(/\D/g, '')
+                  const val = parseInt(clearValue)
+                  if (val > 1025) setPokemonId('1025')
+                  else if (val < 1) setPokemonId('1')
+                  else setPokemonId(clearValue)
+                }
+              }}
+            />
+          </div>
+          <div className="flex flex-row md:flex-row sm:flex-col items-center gap-4 md:gap-8">
+            <div className="flex gap-2 md:gap-4">
+              <CustomButton
+                onClick={() => {
+                  const val = parseInt(pokemonId)
+                  if (!pokemonId || val <= 1) setPokemonId('1025')
+                  else setPokemonId(`${val - 1}`)
+                }}
+              >
+                <FaChevronLeft
+                  style={{ paddingBlock: '3px', height: '24px' }}
+                />
+              </CustomButton>
+              <CustomButton
+                onClick={() => {
+                  const val = parseInt(pokemonId)
+                  if (!pokemonId || val >= 1025) setPokemonId('1')
+                  else setPokemonId(`${val + 1}`)
+                }}
+              >
+                <FaChevronRight
+                  style={{ paddingBlock: '3px', height: '24px' }}
+                />
+              </CustomButton>
+            </div>
+            <CustomButton
+              onClick={() => {
+                setPokemonName('')
+                setPokemonId('')
+              }}
+            >
+              Clear
+            </CustomButton>
+          </div>
         </div>
       </form>
     </>

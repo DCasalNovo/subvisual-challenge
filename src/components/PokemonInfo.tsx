@@ -57,10 +57,22 @@ export const PokemonInfo = () => {
   }
   const currentPokemon: Pokemon = pokemonsList[pokemonName]
 
-  const DisplayButtons = () => {
-    return (
+  return (
+    <div className="px-[4vw] lg:px-10 flex flex-col justify-between w-full h-full gap-4">
+      <div className="w-full py-1 mt-4 flex gap-4 items-baseline justify-center border-b-2 border-slate-400">
+        <h1
+          data-testid="PokeInfo-name"
+          className="font-bold text-3xl text-slate-600"
+        >
+          {capitalizeNames(currentPokemon.name)}
+        </h1>
+        <span data-testid="PokeInfo-id" className="text-xl text-slate-400">
+          (id: {currentPokemon.id})
+        </span>
+      </div>
       <div className="flex justify-between w-full p-4">
         <PokemonButton
+          data-testid="PokeInfo-prev"
           id={currentPokemon.id - 1}
           arrow="prev"
           pending={pending}
@@ -68,6 +80,7 @@ export const PokemonInfo = () => {
           onClick={handleClick}
         />
         <PokemonButton
+          data-testid="PokeInfo-next"
           id={currentPokemon.id + 1}
           arrow="next"
           pending={pending}
@@ -75,22 +88,7 @@ export const PokemonInfo = () => {
           onClick={handleClick}
         />
       </div>
-    )
-  }
-
-  return (
-    <div className="px-[4vw] lg:px-10 flex flex-col justify-between w-full h-full gap-4">
-      <div className="w-full py-1 mt-4 flex gap-4 items-baseline justify-center border-b-2 border-slate-400">
-        <h1 className="font-bold text-3xl text-slate-600">
-          {capitalizeNames(currentPokemon.name)}
-        </h1>
-        <span className="text-xl text-slate-400">
-          (id: {currentPokemon.id})
-        </span>
-      </div>
-      <DisplayButtons />
       <DisplayInfo pokemon={currentPokemon} />
-      <DisplayButtons />
     </div>
   )
 }
